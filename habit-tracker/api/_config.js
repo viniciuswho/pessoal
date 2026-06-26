@@ -14,6 +14,24 @@ export const HABITS = [
 
 export const HABIT_IDS = HABITS.map((h) => h.id);
 
+// Janela do desafio (precisa bater com START/END do public/index.html).
+export const START = '2026-06-22';
+export const END = '2026-07-10';
+
+// Soma `n` dias a uma data ISO (YYYY-MM-DD), com segurança de fuso.
+export function addDays(iso, n) {
+  const [y, m, d] = iso.split('-').map(Number);
+  const dt = new Date(Date.UTC(y, m - 1, d));
+  dt.setUTCDate(dt.getUTCDate() + n);
+  return dt.toISOString().slice(0, 10);
+}
+
+// Última data editável: hoje, sem passar do fim do desafio.
+export function maxEditableDate() {
+  const t = todaySP();
+  return t < END ? t : END;
+}
+
 // "Hoje" no fuso de São Paulo, no formato YYYY-MM-DD.
 // A Vercel roda em UTC; sem isso, marcar de madrugada cairia no dia errado.
 export function todaySP() {
